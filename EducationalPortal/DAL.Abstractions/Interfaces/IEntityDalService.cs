@@ -1,8 +1,9 @@
-﻿using DTO.Models;
+﻿using Core.Models;
+using DTO.Models;
 
 namespace DAL.Abstractions.Interfaces
 {
-    public interface IEntityDalService<T> where T : BaseEntityDto
+    public interface IEntityDalService<T> where T : BaseEntity
     {
         void Add(T t);
 

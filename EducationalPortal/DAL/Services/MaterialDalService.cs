@@ -1,51 +1,50 @@
 ﻿using AutoMapper;
-using Core.Models;
+using Core.Models.Materials;
 using DAL.Abstractions.Interfaces;
-using DTO.Models;
 
 namespace DAL.Services
 {
-    public class CourseDalService : IEntityDalService<Course>
+    public class MaterialDalService : IEntityDalService<Material>
     {
-        private readonly IGenericDalService<CourseDto> _genericDalService;
+        private readonly IGenericDalService<MaterialDto> _genericDalService;
 
         private readonly IMapper _mapper;
 
-        public CourseDalService(IGenericDalService<CourseDto> genericDalService)
+        public MaterialDalService(IGenericDalService<MaterialDto> genericDalService)
         {
             _genericDalService = genericDalService;
             
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CourseDto, Course>();
-                cfg.CreateMap<Course, CourseDto>();
+                cfg.CreateMap<MaterialDto, Material>();
+                cfg.CreateMap<Material, MaterialDto>();
             });
                 
             _mapper = config.CreateMapper();
         }
         
-        public void Add(Course course)
+        public void Add(Material material)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<MaterialDto>(material);
             _genericDalService.Add(dto);
         }
 
-        public Course Get(int id)
+        public Material Get(int id)
         {
             var dto = _genericDalService.Get(id);
-            var course = _mapper.Map<Course>(dto);
+            var material = _mapper.Map<Material>(dto);
             
             // TODO: enhance mapping / fill collections
-            
-            return course;
+
+            return material;
         }
 
-        public void Update(Course course)
+        public void Update(Material material)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<MaterialDto>(material);
             _genericDalService.Update(dto);
             
-            // TODO: process collections in Course
+            // TODO: process collections in Material
         }
 
         public void Delete(int id)

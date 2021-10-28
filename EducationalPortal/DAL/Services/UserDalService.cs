@@ -1,51 +1,50 @@
 ﻿using AutoMapper;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
-using DTO.Models;
 
 namespace DAL.Services
 {
-    public class CourseDalService : IEntityDalService<Course>
+    public class UserDalService : IEntityDalService<User>
     {
-        private readonly IGenericDalService<CourseDto> _genericDalService;
+        private readonly IGenericDalService<UserDto> _genericDalService;
 
         private readonly IMapper _mapper;
 
-        public CourseDalService(IGenericDalService<CourseDto> genericDalService)
+        public UserDalService(IGenericDalService<UserDto> genericDalService)
         {
             _genericDalService = genericDalService;
             
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CourseDto, Course>();
-                cfg.CreateMap<Course, CourseDto>();
+                cfg.CreateMap<UserDto, User>();
+                cfg.CreateMap<User, UserDto>();
             });
                 
             _mapper = config.CreateMapper();
         }
         
-        public void Add(Course course)
+        public void Add(User user)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<UserDto>(user);
             _genericDalService.Add(dto);
         }
 
-        public Course Get(int id)
+        public User Get(int id)
         {
             var dto = _genericDalService.Get(id);
-            var course = _mapper.Map<Course>(dto);
+            var user = _mapper.Map<User>(dto);
             
             // TODO: enhance mapping / fill collections
-            
-            return course;
+
+            return user;
         }
 
-        public void Update(Course course)
+        public void Update(User user)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<UserDto>(user);
             _genericDalService.Update(dto);
             
-            // TODO: process collections in Course
+            // TODO: process collections in User
         }
 
         public void Delete(int id)

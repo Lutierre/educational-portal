@@ -1,51 +1,50 @@
 ﻿using AutoMapper;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
-using DTO.Models;
 
 namespace DAL.Services
 {
-    public class CourseDalService : IEntityDalService<Course>
+    public class SkillDalService : IEntityDalService<Skill>
     {
-        private readonly IGenericDalService<CourseDto> _genericDalService;
+        private readonly IGenericDalService<SkillDto> _genericDalService;
 
         private readonly IMapper _mapper;
 
-        public CourseDalService(IGenericDalService<CourseDto> genericDalService)
+        public SkillDalService(IGenericDalService<SkillDto> genericDalService)
         {
             _genericDalService = genericDalService;
             
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CourseDto, Course>();
-                cfg.CreateMap<Course, CourseDto>();
+                cfg.CreateMap<SkillDto, Skill>();
+                cfg.CreateMap<Skill, SkillDto>();
             });
                 
             _mapper = config.CreateMapper();
         }
         
-        public void Add(Course course)
+        public void Add(Skill skill)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<SkillDto>(skill);
             _genericDalService.Add(dto);
         }
 
-        public Course Get(int id)
+        public Skill Get(int id)
         {
             var dto = _genericDalService.Get(id);
-            var course = _mapper.Map<Course>(dto);
+            var skill = _mapper.Map<Skill>(dto);
             
             // TODO: enhance mapping / fill collections
-            
-            return course;
+
+            return skill;
         }
 
-        public void Update(Course course)
+        public void Update(Skill skill)
         {
-            var dto = _mapper.Map<CourseDto>(course);
+            var dto = _mapper.Map<SkillDto>(skill);
             _genericDalService.Update(dto);
             
-            // TODO: process collections in Course
+            // TODO: process collections in Skill
         }
 
         public void Delete(int id)
