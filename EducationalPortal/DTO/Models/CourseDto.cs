@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Models.Materials;
-
-namespace DTO.Models
+﻿namespace DTO.Models
 {
     public class CourseDto : BaseEntityDto
     {

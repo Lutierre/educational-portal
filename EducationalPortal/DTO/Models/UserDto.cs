@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Models.Materials;
-using DTO.Models;
-
-namespace Core.Models
+﻿namespace DTO.Models
 {
     public class UserDto : BaseEntityDto
     {

@@ -2,6 +2,6 @@
 {
     public abstract class BaseEntityDto
     {
-        public int Id { get; }
+        public int Id { get; set; }
     }
 }

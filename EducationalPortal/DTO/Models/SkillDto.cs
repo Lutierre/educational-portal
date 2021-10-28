@@ -1,6 +1,4 @@
-﻿using DTO.Models;
-
-namespace Core.Models
+﻿namespace DTO.Models
 {
     public class SkillDto : BaseEntityDto
     {

@@ -1,6 +1,6 @@
 ﻿namespace DTO.Models.ManyToMany
 {
-    public class UserCourse : BaseEntityDto
+    public class UserCourseDto : BaseEntityDto
     {
         public int UserId { get; set; }
         
