@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Models.ManyToMany;
 using Core.Models.Materials;
 
 namespace Core.Models

@@ -1,5 +1,4 @@
 ﻿using Core.Models;
-using DTO.Models;
 
 namespace DAL.Abstractions.Interfaces
 {

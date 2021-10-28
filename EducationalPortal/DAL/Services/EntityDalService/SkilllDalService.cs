@@ -34,8 +34,6 @@ namespace DAL.Services.EntityDalService
             var dto = _genericDalService.Get(id);
             var skill = _mapper.Map<Skill>(dto);
             
-            // TODO: enhance mapping / fill collections
-
             return skill;
         }
 
@@ -43,8 +41,6 @@ namespace DAL.Services.EntityDalService
         {
             var dto = _mapper.Map<SkillDto>(skill);
             _genericDalService.Update(dto);
-            
-            // TODO: process collections in Skill
         }
 
         public void Delete(int id)

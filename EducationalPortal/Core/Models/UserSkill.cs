@@ -1,4 +1,4 @@
-﻿namespace Core.Models.ManyToMany
+﻿namespace Core.Models
 {
     public class UserSkill : BaseEntity
     {
