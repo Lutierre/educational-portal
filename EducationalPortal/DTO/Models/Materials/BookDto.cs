@@ -1,6 +1,6 @@
 ﻿namespace Core.Models.Materials
 {
-    public class Book : Material
+    public class BookDto : MaterialDto
     {
         public int MaterialId { get; set; }
         

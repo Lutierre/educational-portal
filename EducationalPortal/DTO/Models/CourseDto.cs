@@ -3,7 +3,7 @@ using Core.Models.Materials;
 
 namespace DTO.Models
 {
-    public class Course : BaseEntity
+    public class CourseDto : BaseEntityDto
     {
         public string Title { get; set; }
         

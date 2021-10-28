@@ -1,6 +1,6 @@
 ﻿namespace Core.Models.Materials
 {
-    public class Video : Material
+    public class VideoDto : MaterialDto
     {
         public int MaterialId { get; set; }
         

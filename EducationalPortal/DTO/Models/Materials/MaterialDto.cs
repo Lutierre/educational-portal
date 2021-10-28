@@ -2,7 +2,7 @@
 
 namespace Core.Models.Materials
 {
-    public class Material : BaseEntity
+    public class MaterialDto : BaseEntityDto
     {
         public string Title { get; set; }
     }

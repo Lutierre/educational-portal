@@ -1,28 +1,71 @@
-﻿using DAL.Abstractions.Interfaces;
+﻿using System.Collections.Generic;
+using System.IO;
+using DAL.Abstractions.Interfaces;
 using DTO.Models;
+using Newtonsoft.Json;
 
 namespace DAL.Services
 {
-    public class GenericDalService<T> : IGenericDalService<T> where T : BaseEntity
+    public class GenericDalService<T> : IGenericDalService<T> where T : BaseEntityDto
     {
-        public void Add(T t)
+        private Dictionary<int, T> _entries;
+
+        private readonly string _path = $"Json/{typeof(T).Name}.json";
+
+        private readonly IGenericDalService<T> _genericDalService;
+        
+        public GenericDalService(IGenericDalService<T> genericDalService)
         {
-            throw new System.NotImplementedException();
+            _genericDalService = genericDalService;
         }
 
-        public T Get(int id)
+        public void Deserialize()
         {
-            throw new System.NotImplementedException();
+            _entries = JsonConvert.DeserializeObject<Dictionary<int, T>>(File.ReadAllText(_path));
         }
 
-        public T Update(T user)
+        public void Serialize()
         {
-            throw new System.NotImplementedException();
+            var serializer = new JsonSerializer();
+            var path = $"Json/{typeof(T).Name}.json";
+            
+            using (StreamWriter sw = new StreamWriter(path))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, _entries);
+            }
+            
+            _entries.Clear();
+        }
+
+        public void Add(T t) // add element to collection
+        {
+            Deserialize();
+            _entries.Add(t.Id, t);
+            Serialize();
+        }
+
+        public T Get(int id) // get element from collection
+        {
+            Deserialize();
+            T entryDto = _entries[id];
+            _entries.Clear();
+            
+            return entryDto;
+        }
+
+        public void Update(T user)
+        {
+            Deserialize();
+            _entries[user.Id] = user;
+            Serialize();
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            Deserialize();
+            _entries.Remove(id);
+            Serialize();
         }
     }
 }

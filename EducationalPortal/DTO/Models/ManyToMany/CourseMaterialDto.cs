@@ -1,8 +1,6 @@
-﻿using DTO.Models;
-
-namespace Core.Models.ManyToMany
+﻿namespace DTO.Models.ManyToMany
 {
-    public class CourseMaterial : BaseEntity
+    public class CourseMaterialDto : BaseEntityDto
     {
         public int CourseId { get; set; }
         

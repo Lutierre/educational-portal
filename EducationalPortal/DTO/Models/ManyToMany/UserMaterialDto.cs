@@ -1,8 +1,6 @@
-﻿using DTO.Models;
-
-namespace Core.Models.ManyToMany
+﻿namespace DTO.Models.ManyToMany
 {
-    public class UserMaterial : BaseEntity
+    public class UserMaterial : BaseEntityDto
     {
         public int UserId { get; set; }
         

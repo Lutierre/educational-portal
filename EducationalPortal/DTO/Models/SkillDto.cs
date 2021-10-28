@@ -2,7 +2,7 @@
 
 namespace Core.Models
 {
-    public class Skill : BaseEntity
+    public class SkillDto : BaseEntityDto
     {
         public string Title { get; set; }
     }

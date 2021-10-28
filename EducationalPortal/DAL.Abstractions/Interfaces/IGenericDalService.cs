@@ -2,13 +2,17 @@
 
 namespace DAL.Abstractions.Interfaces
 {
-    public interface IGenericDalService<T> where T : BaseEntity
+    public interface IGenericDalService<T> where T : BaseEntityDto
     {
+        void Deserialize();
+
+        void Serialize();
+        
         void Add(T t);
 
         T Get(int id);
 
-        T Update(T user);
+        void Update(T user);
 
         void Delete(int id);
     }
