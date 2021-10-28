@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
+using DTO.Models;
 
 namespace DAL.Services.EntityDalService
 {
