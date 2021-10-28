@@ -1,4 +1,5 @@
-﻿using UI.Abstractions.Interfaces;
+﻿using System;
+using UI.Abstractions.Interfaces;
 
 namespace EducationalPortal.Services
 {
@@ -6,7 +7,7 @@ namespace EducationalPortal.Services
     {
         public void Start()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Hello world!");
         }
 
         public void Add()

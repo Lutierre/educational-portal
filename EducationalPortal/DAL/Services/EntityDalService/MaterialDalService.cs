@@ -2,7 +2,7 @@
 using Core.Models.Materials;
 using DAL.Abstractions.Interfaces;
 
-namespace DAL.Services
+namespace DAL.Services.EntityDalService
 {
     public class MaterialDalService : IEntityDalService<Material>
     {

@@ -1,50 +1,51 @@
 ﻿using AutoMapper;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
+using DTO.Models;
 
-namespace DAL.Services
+namespace DAL.Services.EntityDalService
 {
-    public class UserDalService : IEntityDalService<User>
+    public class CourseDalService : IEntityDalService<Course>
     {
-        private readonly IGenericDalService<UserDto> _genericDalService;
+        private readonly IGenericDalService<CourseDto> _genericDalService;
 
         private readonly IMapper _mapper;
 
-        public UserDalService(IGenericDalService<UserDto> genericDalService)
+        public CourseDalService(IGenericDalService<CourseDto> genericDalService)
         {
             _genericDalService = genericDalService;
             
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<UserDto, User>();
-                cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<CourseDto, Course>();
+                cfg.CreateMap<Course, CourseDto>();
             });
                 
             _mapper = config.CreateMapper();
         }
         
-        public void Add(User user)
+        public void Add(Course course)
         {
-            var dto = _mapper.Map<UserDto>(user);
+            var dto = _mapper.Map<CourseDto>(course);
             _genericDalService.Add(dto);
         }
 
-        public User Get(int id)
+        public Course Get(int id)
         {
             var dto = _genericDalService.Get(id);
-            var user = _mapper.Map<User>(dto);
+            var course = _mapper.Map<Course>(dto);
             
             // TODO: enhance mapping / fill collections
-
-            return user;
+            
+            return course;
         }
 
-        public void Update(User user)
+        public void Update(Course course)
         {
-            var dto = _mapper.Map<UserDto>(user);
+            var dto = _mapper.Map<CourseDto>(course);
             _genericDalService.Update(dto);
             
-            // TODO: process collections in User
+            // TODO: process collections in Course
         }
 
         public void Delete(int id)
