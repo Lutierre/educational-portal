@@ -43,7 +43,7 @@ namespace DAL.Services
         public void Add(T t)
         {
             Deserialize();
-            t.Id = _entries[^1].Id + 1;
+            t.Id = _entries.Keys.DefaultIfEmpty(0).Max() + 1;
             _entries.Add(t.Id, t);
             Serialize();
         }
@@ -51,7 +51,7 @@ namespace DAL.Services
         public void AddMany(List<T> entries)
         {
             Deserialize();
-            var newId = _entries[^1].Id + 1;
+            var newId = _entries.Keys.DefaultIfEmpty(0).Max() + 1;
             
             foreach (var entry in entries)
             {
