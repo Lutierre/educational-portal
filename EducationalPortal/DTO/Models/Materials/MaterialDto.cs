@@ -1,6 +1,4 @@
-﻿using DTO.Models;
-
-namespace Core.Models.Materials
+﻿namespace DTO.Models.Materials
 {
     public class MaterialDto : BaseEntityDto
     {

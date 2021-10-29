@@ -1,4 +1,4 @@
-﻿namespace Core.Models.Materials
+﻿namespace DTO.Models.Materials
 {
     public class ArticleDto : MaterialDto
     {
