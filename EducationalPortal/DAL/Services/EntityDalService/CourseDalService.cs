@@ -13,7 +13,7 @@ namespace DAL.Services.EntityDalService
     public class CourseDalService : IEntityDalService<Course>
     {
         private readonly IGenericDalService<CourseDto> _courseDtoService;
-        private readonly IGenericDalService<UserDto> _userDtoService;
+        private readonly IGenericDalService<UserDto> _userDtoService; 
         private readonly IGenericDalService<SkillDto> _skillDtoService;
         private readonly IGenericDalService<MaterialDto> _materialDtoService;
         private readonly IGenericDalService<CourseSkillDto> _courseSkillDtoService;
@@ -47,6 +47,7 @@ namespace DAL.Services.EntityDalService
         public void Add(Course course)
         {
             var dto = _mapper.Map<CourseDto>(course);
+            dto.AuthorId = course.Author.Id;
             _courseDtoService.Add(dto);
         }
 
@@ -54,6 +55,8 @@ namespace DAL.Services.EntityDalService
         {
             var dto = _courseDtoService.Get(id);
             var course = _mapper.Map<Course>(dto);
+
+            course.Author = _mapper.Map<User>(_userDtoService.Get(dto.AuthorId));
             
             var filteredSkills = 
                 _courseSkillDtoService.Filter(courseSkillDto => courseSkillDto.CourseId == id);
@@ -85,6 +88,7 @@ namespace DAL.Services.EntityDalService
         public void Update(Course course)
         {
             var dto = _mapper.Map<CourseDto>(course);
+            dto.AuthorId = course.Author.Id;
             _courseDtoService.Update(dto);
             
             _courseSkillDtoService.DeleteMany(courseSkillDto => courseSkillDto.CourseId == course.Id);
