@@ -6,6 +6,7 @@ using Core.Models.Materials;
 using DAL.Abstractions.Interfaces;
 using DTO.Models;
 using DTO.Models.ManyToMany;
+using DTO.Models.Materials;
 
 namespace DAL.Services.EntityDalService
 {

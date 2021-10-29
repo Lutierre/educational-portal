@@ -11,15 +11,8 @@ namespace DAL.Services
     public class GenericDalService<T> : IGenericDalService<T> where T : BaseEntityDto
     {
         private Dictionary<int, T> _entries;
-
-        private readonly string _path = $"Json/{typeof(T).Name}.json";
-
-        private readonly IGenericDalService<T> _genericDalService;
         
-        public GenericDalService(IGenericDalService<T> genericDalService)
-        {
-            _genericDalService = genericDalService;
-        }
+        private readonly string _path = $"{AppDomain.CurrentDomain.BaseDirectory}/Json/{typeof(T).Name}.json";
 
         public void Deserialize()
         {
@@ -28,15 +21,14 @@ namespace DAL.Services
 
         public void Serialize()
         {
-            var serializer = new JsonSerializer();
             var path = $"Json/{typeof(T).Name}.json";
+            var output = JsonConvert.SerializeObject(_entries, Formatting.Indented);
             
             using (var sw = new StreamWriter(path))
-            using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                serializer.Serialize(writer, _entries);
+                sw.Write(output);
             }
-            
+
             _entries.Clear();
         }
 
