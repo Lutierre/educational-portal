@@ -13,7 +13,7 @@ namespace DAL.Abstractions.Interfaces
     
     public interface IGenericDalService<T> : IGenericDalService where T : BaseEntityDto
     {
-        void Add(T t);
+        int Add(T t);
 
         void AddMany(List<T> entries);
 

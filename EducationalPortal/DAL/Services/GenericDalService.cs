@@ -32,12 +32,14 @@ namespace DAL.Services
             _entries.Clear();
         }
 
-        public void Add(T t)
+        public int Add(T t)
         {
             Deserialize();
             t.Id = _entries.Keys.DefaultIfEmpty(0).Max() + 1;
             _entries.Add(t.Id, t);
             Serialize();
+
+            return t.Id;
         }
 
         public void AddMany(List<T> entries)
