@@ -7,13 +7,13 @@ namespace DAL.Services.EntityDalService
 {
     public class SkillDalService : IEntityDalService<Skill>
     {
-        private readonly IGenericDalService<SkillDto> _genericDalService;
+        private readonly IGenericDalService<SkillDto> _skillDtoService;
 
         private readonly IMapper _mapper;
 
-        public SkillDalService(IGenericDalService<SkillDto> genericDalService)
+        public SkillDalService(IGenericDalService<SkillDto> skillDtoService)
         {
-            _genericDalService = genericDalService;
+            _skillDtoService = skillDtoService;
             
             var config = new MapperConfiguration(cfg =>
             {
@@ -27,12 +27,12 @@ namespace DAL.Services.EntityDalService
         public void Add(Skill skill)
         {
             var dto = _mapper.Map<SkillDto>(skill);
-            _genericDalService.Add(dto);
+            _skillDtoService.Add(dto);
         }
 
         public Skill Get(int id)
         {
-            var dto = _genericDalService.Get(id);
+            var dto = _skillDtoService.Get(id);
             var skill = _mapper.Map<Skill>(dto);
             
             return skill;
@@ -41,12 +41,12 @@ namespace DAL.Services.EntityDalService
         public void Update(Skill skill)
         {
             var dto = _mapper.Map<SkillDto>(skill);
-            _genericDalService.Update(dto);
+            _skillDtoService.Update(dto);
         }
 
         public void Delete(int id)
         {
-            _genericDalService.Delete(id);
+            _skillDtoService.Delete(id);
         }
     }
 }

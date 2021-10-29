@@ -21,14 +21,14 @@ namespace DAL.Services.EntityDalService
         
         private readonly IMapper _mapper;
 
-        public CourseDalService(IGenericDalService<CourseDto> genericDalService,
+        public CourseDalService(IGenericDalService<CourseDto> courseDtoService,
             IGenericDalService<UserDto> userDtoService,
             IGenericDalService<SkillDto> skillDtoService,
             IGenericDalService<MaterialDto> materialDtoService, 
             IGenericDalService<CourseSkillDto> courseSkillDtoService,
             IGenericDalService<CourseMaterialDto> courseMaterialDtoService)
         {
-            _courseDtoService = genericDalService;
+            _courseDtoService = courseDtoService;
             _userDtoService = userDtoService;
             _skillDtoService = skillDtoService;
             _materialDtoService = materialDtoService;

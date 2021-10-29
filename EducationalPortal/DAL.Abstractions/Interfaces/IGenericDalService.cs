@@ -4,12 +4,15 @@ using DTO.Models;
 
 namespace DAL.Abstractions.Interfaces
 {
-    public interface IGenericDalService<T> where T : BaseEntityDto
+    public interface IGenericDalService
     {
         void Deserialize();
 
         void Serialize();
-
+    }
+    
+    public interface IGenericDalService<T> : IGenericDalService where T : BaseEntityDto
+    {
         void Add(T t);
 
         void AddMany(List<T> entries);
