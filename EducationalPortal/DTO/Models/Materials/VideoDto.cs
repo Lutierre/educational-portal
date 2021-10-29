@@ -1,9 +1,7 @@
 ﻿namespace DTO.Models.Materials
 {
-    public class VideoDto : MaterialDto
+    public class VideoDto : AbstractMaterialDto
     {
-        public int MaterialId { get; set; }
-        
         public string Duration { get; set; }
         
         public string Quality { get; set; }

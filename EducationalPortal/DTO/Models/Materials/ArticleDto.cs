@@ -1,9 +1,7 @@
 ﻿namespace DTO.Models.Materials
 {
-    public class ArticleDto : MaterialDto
+    public class ArticleDto : AbstractMaterialDto
     {
-        public int MaterialId { get; set; }
-        
         public string Date { get; set; }
         
         public string Source { get; set; }

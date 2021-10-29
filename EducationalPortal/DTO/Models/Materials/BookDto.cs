@@ -1,9 +1,7 @@
 ﻿namespace DTO.Models.Materials
 {
-    public class BookDto : MaterialDto
+    public class BookDto : AbstractMaterialDto
     {
-        public int MaterialId { get; set; }
-        
         public string Authors { get; set; }
         
         public int Year { get; set; }
