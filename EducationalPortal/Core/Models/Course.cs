@@ -14,6 +14,7 @@ namespace Core.Models
         public List<Skill> Skills { get; set; }
         
         public List<Material> Materials { get; set; }
-        
+
+        public bool IsAvailable => Materials.Count > 0;
     }
 }
