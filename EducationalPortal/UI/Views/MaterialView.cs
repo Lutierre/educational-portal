@@ -7,18 +7,20 @@ namespace EducationalPortal.Views
 {
     public class MaterialView : IMaterialView
     {
-        private readonly IUserService _userService;
+        private readonly IMaterialService _materialService;
+        private readonly ICurrentStateService _currentStateService;
 
-        public MaterialView(IUserService userService)
+        public MaterialView(ICurrentStateService currentStateService, IMaterialService materialService)
         {
-            _userService = userService;
+            _currentStateService = currentStateService;
+            _materialService = materialService;
         }
 
         public void Start()
         {
             Console.Clear();
 
-            var material = _userService.CurrentMaterial;
+            var material = _currentStateService.CurrentMaterial;
             
             Console.WriteLine("Информация о материале:\n" +
                               $"Название: {material.Title}");
@@ -48,7 +50,7 @@ namespace EducationalPortal.Views
 
             if (Console.ReadKey().KeyChar == 'y')
             {
-                _userService.LearnMaterial();
+                _materialService.LearnMaterial();
                 Console.WriteLine("Поздравляем! Вы изучили материал :)");
             }
             else
@@ -59,7 +61,7 @@ namespace EducationalPortal.Views
             Console.WriteLine("Нажмите любую клавишу для возврата:");
             Console.ReadKey();
             
-            _userService.CloseMaterial();
+            _currentStateService.CloseMaterial();
         }
     }
 }

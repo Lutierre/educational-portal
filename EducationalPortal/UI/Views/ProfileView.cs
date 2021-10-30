@@ -9,14 +9,20 @@ namespace EducationalPortal.Views
         private readonly IUserService _userService;
         private readonly ICreateCourseView _createCourseView;
         private readonly ICoursesListView _coursesListView;
+        private readonly ICurrentStateService _currentStateService;
+        private readonly ICourseService _courseService;
 
         public ProfileView(IUserService userService,
             ICreateCourseView createCourseView, 
-            ICoursesListView coursesListView)
+            ICoursesListView coursesListView, 
+            ICurrentStateService currentStateService,
+            ICourseService courseService)
         {
             _userService = userService;
             _createCourseView = createCourseView;
             _coursesListView = coursesListView;
+            _currentStateService = currentStateService;
+            _courseService = courseService;
         }
 
 
@@ -24,8 +30,8 @@ namespace EducationalPortal.Views
         {
             Console.Clear();
             
-            var nickname = _userService.AuthorizedUser.Nickname;
-            var password = new string('*', _userService.AuthorizedUser.Password.Length);   
+            var nickname = _currentStateService.AuthorizedUser.Nickname;
+            var password = new string('*', _currentStateService.AuthorizedUser.Password.Length);   
             
             Console.WriteLine($"Добро пожаловать в личный кабинет, {nickname}!\n" +
                               $"Ваш пароль: {password}");
@@ -40,7 +46,7 @@ namespace EducationalPortal.Views
             
             Console.WriteLine("Список всех пройденных курсов:");
 
-            var completedCourses = _userService.GetCompletedCourses();
+            var completedCourses = _courseService.GetCompletedCourses();
 
             foreach (var course in completedCourses)
             {
@@ -49,7 +55,7 @@ namespace EducationalPortal.Views
             
             Console.WriteLine("Список всех курсов с процентом прохождения:");
 
-            var coursesProgress = _userService.GetCoursesProgress();
+            var coursesProgress = _courseService.GetCoursesProgress();
 
             foreach (var (course, progress) in coursesProgress)
             {

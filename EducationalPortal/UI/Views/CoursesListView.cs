@@ -6,13 +6,17 @@ namespace EducationalPortal.Views
 {
     public class CoursesListView : ICoursesListView
     {
-        private readonly IUserService _userService;
+        private readonly ICurrentStateService _currentStateService;
+        private readonly ICourseService _courseService;
         private readonly ICourseView _courseView;
 
-        public CoursesListView(IUserService userService, ICourseView courseView)
+        public CoursesListView(ICurrentStateService currentStateService, 
+            ICourseView courseView,
+            ICourseService courseService)
         {
-            _userService = userService;
             _courseView = courseView;
+            _courseService = courseService;
+            _currentStateService = currentStateService;
         }
 
         public void Start()
@@ -22,7 +26,7 @@ namespace EducationalPortal.Views
             Console.WriteLine("Введите id курса (без точки), чтобы открыть его.\n" +
                               "Введите 0, если хотите выйти:");
 
-            var coursesList = _userService.GetAvailableCourses();
+            var coursesList = _courseService.GetAvailableCourses();
 
             foreach (var course in coursesList)
             {
@@ -36,7 +40,7 @@ namespace EducationalPortal.Views
                 return;
             }
             
-            _userService.OpenCourse(input);
+            _currentStateService.OpenCourse(input);
             _courseView.Start();
         }
     }

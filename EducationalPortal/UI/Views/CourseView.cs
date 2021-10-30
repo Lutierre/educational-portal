@@ -6,18 +6,22 @@ namespace EducationalPortal.Views
 {
     public class CourseView : ICourseView
     {
-        private readonly IUserService _userService;
         private readonly IMaterialView _materialView;
+        private readonly ICurrentStateService _currentStateService;
+        private readonly ICourseService _courseService;
 
-        public CourseView(IUserService userService, IMaterialView materialView)
+        public CourseView(IMaterialView materialView,
+            ICurrentStateService currentStateService,
+            ICourseService courseService)
         {
-            _userService = userService;
             _materialView = materialView;
+            _currentStateService = currentStateService;
+            _courseService = courseService;
         }
 
         public void Start()
         {
-            var course = _userService.CurrentCourse;
+            var course = _currentStateService.CurrentCourse;
 
             Console.WriteLine($"Название курса: {course.Title}\n" +
                               $"Создатель курса: {course.Author.Nickname}\n" +
@@ -50,7 +54,7 @@ namespace EducationalPortal.Views
                 switch (input)
                 {
                     case "s": 
-                        _userService.SubscribeCourse();
+                        _courseService.SubscribeCourse();
                         Console.WriteLine("Поздравляем с подпиской на курс!");
                         break;
                         
@@ -59,13 +63,13 @@ namespace EducationalPortal.Views
                     
                     default:
                         int.TryParse(input, out var id);
-                        _userService.OpenMaterial(id);
+                        _currentStateService.OpenMaterial(id);
                         _materialView.Start();
                         break;
                 }
             }
             
-            _userService.CloseCourse();
+            _currentStateService.CloseCourse();
         }
     }
 }

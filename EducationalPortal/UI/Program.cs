@@ -29,6 +29,11 @@ namespace EducationalPortal
                 .AddTransient<ICreateCourseView, CreateCourseView>()
                 .AddTransient<IMaterialView, MaterialView>()
                 .AddTransient<IProfileView, ProfileView>()
+                .AddTransient<ICourseService, CourseService>()
+                .AddTransient<ICurrentStateService, CurrentStateService>()
+                .AddTransient<IMaterialService, MaterialService>()
+                .AddTransient<ISkillService, SkillService>()
+                .AddTransient<IUserService, UserService>()
                 .BuildServiceProvider();
 
             var startPoint = serviceProvider.GetService<IApplication>();
