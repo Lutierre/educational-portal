@@ -50,8 +50,7 @@ namespace EducationalPortal.Views
                         _profileView.Start();
                         break;
                     
-                    case "not-exists":
-                        _userService.RegisterUser(nickname, password);
+                    case "registered":
                         Console.WriteLine("Вы зарегистрированы!\n" +
                                           "Нажмите любую клавишу, чтобы перейти в личный кабинет:");
                         Console.ReadKey();
