@@ -75,25 +75,29 @@ namespace DAL.Services.EntityDalService
             var dto = _mapper.Map<MaterialDto>(material);
             var id = _materialDalService.Add(dto);
             
-            if (material.GetType() == typeof(Article))
+            switch (material.Type)
             {
-                var articleDto = _mapper.Map<ArticleDto>(material);
-                articleDto.MaterialId = id;
-                _articleDtoService.Add(articleDto);
-            }
-            
-            if (material.GetType() == typeof(Book))
-            {
-                var bookDto = _mapper.Map<BookDto>(material);
-                bookDto.MaterialId = id;
-                _bookDtoService.Add(bookDto);
-            }
-            
-            if (material.GetType() == typeof(Video))
-            {
-                var videoDto = _mapper.Map<VideoDto>(material);
-                videoDto.MaterialId = id;
-                _videoDtoService.Add(videoDto);   
+                case "Article":
+                {
+                    var articleDto = _mapper.Map<ArticleDto>(material);
+                    articleDto.MaterialId = id;
+                    _articleDtoService.Add(articleDto);
+                    break;
+                }
+                case "Book":
+                {
+                    var bookDto = _mapper.Map<BookDto>(material);
+                    bookDto.MaterialId = id;
+                    _bookDtoService.Add(bookDto);
+                    break;
+                }
+                case "Video":
+                {
+                    var videoDto = _mapper.Map<VideoDto>(material);
+                    videoDto.MaterialId = id;
+                    _videoDtoService.Add(videoDto);
+                    break;
+                }
             }
         }
 
@@ -128,19 +132,17 @@ namespace DAL.Services.EntityDalService
             var dto = _mapper.Map<MaterialDto>(material);
             _materialDalService.Update(dto);
 
-            if (material.GetType() == typeof(Article))
+            switch (material.Type)
             {
-                TryUpdateMaterial(_articleDtoService, material);
-            }
-            
-            if (material.GetType() == typeof(Book))
-            {
-                TryUpdateMaterial(_bookDtoService, material);
-            }
-            
-            if (material.GetType() == typeof(Video))
-            {
-                TryUpdateMaterial(_videoDtoService, material);
+                case "Article":
+                    TryUpdateMaterial(_articleDtoService, material);
+                    break;
+                case "Book":
+                    TryUpdateMaterial(_bookDtoService, material);
+                    break;
+                case "Video":
+                    TryUpdateMaterial(_videoDtoService, material);
+                    break;
             }
         }
 
@@ -148,21 +150,19 @@ namespace DAL.Services.EntityDalService
         {
             var material = Get(id);
 
-            if (material.GetType() == typeof(Article))
+            switch (material.Type)
             {
-                _articleDtoService.DeleteMany(dto => dto.MaterialId == id);
+                case "Article":
+                    _articleDtoService.DeleteMany(dto => dto.MaterialId == id);
+                    break;
+                case "Book":
+                    _bookDtoService.DeleteMany(dto => dto.MaterialId == id);
+                    break;
+                case "Video":
+                    _videoDtoService.DeleteMany(dto => dto.MaterialId == id);
+                    break;
             }
-            
-            if (material.GetType() == typeof(Book))
-            {
-                _bookDtoService.DeleteMany(dto => dto.MaterialId == id);
-            }
-            
-            if (material.GetType() == typeof(Video))
-            {
-                _videoDtoService.DeleteMany(dto => dto.MaterialId == id);
-            }
-            
+
             _materialDalService.Delete(id);
         }
     }
