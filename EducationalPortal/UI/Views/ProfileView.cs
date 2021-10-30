@@ -11,18 +11,21 @@ namespace EducationalPortal.Views
         private readonly ICoursesListView _coursesListView;
         private readonly ICurrentStateService _currentStateService;
         private readonly ICourseService _courseService;
+        private readonly ISkillService _skillService;
 
         public ProfileView(IUserService userService,
             ICreateCourseView createCourseView, 
             ICoursesListView coursesListView, 
             ICurrentStateService currentStateService,
-            ICourseService courseService)
+            ICourseService courseService, 
+            ISkillService skillService)
         {
             _userService = userService;
             _createCourseView = createCourseView;
             _coursesListView = coursesListView;
             _currentStateService = currentStateService;
             _courseService = courseService;
+            _skillService = skillService;
         }
 
 
@@ -37,7 +40,7 @@ namespace EducationalPortal.Views
                               $"Ваш пароль: {password}");
             Console.WriteLine("Список всех ваших умений и очков:");
 
-            var userSkills = _userService.GetUserSkills();
+            var userSkills = _skillService.GetUserSkills();
 
             foreach (var skill in userSkills)
             {

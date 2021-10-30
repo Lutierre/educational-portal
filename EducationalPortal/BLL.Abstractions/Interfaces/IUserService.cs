@@ -9,8 +9,6 @@ namespace BLL.Abstractions.Interfaces
 
         void RegisterUser(string nickname, string password);
 
-        List<UserSkill> GetUserSkills();
-
         void Logout();
     }
 }

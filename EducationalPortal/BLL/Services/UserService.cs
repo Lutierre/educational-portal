@@ -45,11 +45,6 @@ namespace BLL.Services
             _userDalService.Add(new User { Nickname = nickname, Password = password });
         }
 
-        public List<UserSkill> GetUserSkills()
-        {
-            return _currentStateService.AuthorizedUser.Skills;
-        }
-
         public void Logout()
         {
             _currentStateService.AuthorizedUser = default;
