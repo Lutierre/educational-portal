@@ -1,11 +1,22 @@
 ﻿using BLL.Abstractions.Interfaces;
 using Core.Models;
 using Core.Models.Materials;
+using DAL.Abstractions.Interfaces;
 
 namespace BLL.Services
 {
     public class CurrentStateService : ICurrentStateService
     {
+        private readonly IEntityDalService<Course> _courseDalService;
+        private readonly IEntityDalService<Material> _materialDalService;
+        
+        public CurrentStateService(IEntityDalService<Course> courseDalService,
+            IEntityDalService<Material> materialDalService)
+        {
+            _courseDalService = courseDalService;
+            _materialDalService = materialDalService;
+        }
+
         public User AuthorizedUser { get; set; }
         
         public Course CurrentCourse { get; set; }
@@ -14,22 +25,22 @@ namespace BLL.Services
         
         public void OpenCourse(int id)
         {
-            throw new System.NotImplementedException();
+            CurrentCourse = _courseDalService.Get(id);
         }
 
         public void CloseCourse()
         {
-            throw new System.NotImplementedException();
+            CurrentCourse = default;
         }
 
         public void OpenMaterial(int id)
         {
-            throw new System.NotImplementedException();
+            CurrentMaterial = _materialDalService.Get(id);
         }
 
         public void CloseMaterial()
         {
-            throw new System.NotImplementedException();
+            CurrentMaterial = default;
         }
     }
 }
