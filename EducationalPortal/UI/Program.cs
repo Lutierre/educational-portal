@@ -21,7 +21,7 @@ namespace EducationalPortal
                 .AddTransient<IEntityDalService<Course>, CourseDalService>()
                 .AddTransient<IEntityDalService<Material>, MaterialDalService>()
                 .AddTransient<IEntityDalService<Skill>, SkillDalService>()
-                .AddTransient(typeof(IGenericDalService<>), typeof(GenericDalService<>))
+                .AddTransient(typeof(IGenericDtoService<>), typeof(GenericDtoService<>))
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<IAuthorizationView, AuthorizationView>()
                 .AddTransient<ICoursesListView, CoursesListView>()

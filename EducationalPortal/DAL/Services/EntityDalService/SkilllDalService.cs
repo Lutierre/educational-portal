@@ -10,11 +10,11 @@ namespace DAL.Services.EntityDalService
 {
     public class SkillDalService : IEntityDalService<Skill>
     {
-        private readonly IGenericDalService<SkillDto> _skillDtoService;
+        private readonly IGenericDtoService<SkillDto> _skillDtoService;
 
         private readonly IMapper _mapper;
 
-        public SkillDalService(IGenericDalService<SkillDto> skillDtoService)
+        public SkillDalService(IGenericDtoService<SkillDto> skillDtoService)
         {
             _skillDtoService = skillDtoService;
             

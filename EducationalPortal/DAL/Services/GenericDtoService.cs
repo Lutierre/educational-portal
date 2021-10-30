@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DAL.Services
 {
-    public class GenericDalService<T> : IGenericDalService<T> where T : BaseEntityDto
+    public class GenericDtoService<T> : IGenericDtoService<T> where T : BaseEntityDto
     {
         private Dictionary<int, T> _entries;
         

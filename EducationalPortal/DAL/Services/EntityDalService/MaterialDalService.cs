@@ -11,17 +11,17 @@ namespace DAL.Services.EntityDalService
 {
     public class MaterialDalService : IEntityDalService<Material>
     {
-        private readonly IGenericDalService<MaterialDto> _materialDtoService;
-        private readonly IGenericDalService<ArticleDto> _articleDtoService;
-        private readonly IGenericDalService<BookDto> _bookDtoService;
-        private readonly IGenericDalService<VideoDto> _videoDtoService;
+        private readonly IGenericDtoService<MaterialDto> _materialDtoService;
+        private readonly IGenericDtoService<ArticleDto> _articleDtoService;
+        private readonly IGenericDtoService<BookDto> _bookDtoService;
+        private readonly IGenericDtoService<VideoDto> _videoDtoService;
 
         private readonly IMapper _mapper;
 
-        public MaterialDalService(IGenericDalService<MaterialDto> materialDtoService,
-            IGenericDalService<ArticleDto> articleDtoService,
-            IGenericDalService<BookDto> bookDtoService,
-            IGenericDalService<VideoDto> videoDtoService)
+        public MaterialDalService(IGenericDtoService<MaterialDto> materialDtoService,
+            IGenericDtoService<ArticleDto> articleDtoService,
+            IGenericDtoService<BookDto> bookDtoService,
+            IGenericDtoService<VideoDto> videoDtoService)
         {
             _materialDtoService = materialDtoService;
             _articleDtoService = articleDtoService;
@@ -40,10 +40,10 @@ namespace DAL.Services.EntityDalService
             _mapper = config.CreateMapper();
         }
         
-        private T1 TryGetMaterial<T1, T2>(IGenericDalService<T2> genericDalService, int id)
+        private T1 TryGetMaterial<T1, T2>(IGenericDtoService<T2> genericDtoService, int id)
             where T1 : Material where T2 : BaseEntityDto 
         {
-            var dtos = genericDalService.Filter(dto => dto.Id == id);
+            var dtos = genericDtoService.Filter(dto => dto.Id == id);
 
             if (dtos.Count == 0)
             {
@@ -60,15 +60,15 @@ namespace DAL.Services.EntityDalService
             return result;
         }
 
-        private void TryUpdateMaterial<T>(IGenericDalService<T> genericDalService, Material material)
+        private void TryUpdateMaterial<T>(IGenericDtoService<T> genericDtoService, Material material)
             where T : AbstractMaterialDto
         {
-            var dtos = genericDalService.Filter(dto => dto.MaterialId == material.Id);
+            var dtos = genericDtoService.Filter(dto => dto.MaterialId == material.Id);
 
             var dto = _mapper.Map<T>(material);
             dto.Id = dtos[0].Id;
 
-            genericDalService.Update(dto);
+            genericDtoService.Update(dto);
         }
 
         public Material Add(Material material)

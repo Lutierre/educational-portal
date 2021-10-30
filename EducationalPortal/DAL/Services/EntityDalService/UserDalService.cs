@@ -13,25 +13,25 @@ namespace DAL.Services.EntityDalService
 {
     public class UserDalService : IEntityDalService<User>
     {
-        private readonly IGenericDalService<UserDto> _userDtoService;
-        private readonly IGenericDalService<CourseDto> _courseDtoService;
-        private readonly IGenericDalService<SkillDto> _skillDtoService;
-        private readonly IGenericDalService<MaterialDto> _materialDtoService;
-        private readonly IGenericDalService<UserSkillDto> _userSkillDtoService;
-        private readonly IGenericDalService<UserCourseDto> _userCourseDtoService;
-        private readonly IGenericDalService<UserMaterialDto> _userMaterialDtoService;
+        private readonly IGenericDtoService<UserDto> _userDtoService;
+        private readonly IGenericDtoService<CourseDto> _courseDtoService;
+        private readonly IGenericDtoService<SkillDto> _skillDtoService;
+        private readonly IGenericDtoService<MaterialDto> _materialDtoService;
+        private readonly IGenericDtoService<UserSkillDto> _userSkillDtoService;
+        private readonly IGenericDtoService<UserCourseDto> _userCourseDtoService;
+        private readonly IGenericDtoService<UserMaterialDto> _userMaterialDtoService;
 
         private readonly IMapper _mapper;
 
-        public UserDalService(IGenericDalService<UserDto> genericDalService, 
-            IGenericDalService<CourseDto> courseDtoService,
-            IGenericDalService<UserSkillDto> userSkillDtoService,
-            IGenericDalService<UserCourseDto> userCourseDtoService,
-            IGenericDalService<UserMaterialDto> userMaterialDtoService, 
-            IGenericDalService<SkillDto> skillDtoService, 
-            IGenericDalService<MaterialDto> materialDtoService)
+        public UserDalService(IGenericDtoService<UserDto> genericDtoService, 
+            IGenericDtoService<CourseDto> courseDtoService,
+            IGenericDtoService<UserSkillDto> userSkillDtoService,
+            IGenericDtoService<UserCourseDto> userCourseDtoService,
+            IGenericDtoService<UserMaterialDto> userMaterialDtoService, 
+            IGenericDtoService<SkillDto> skillDtoService, 
+            IGenericDtoService<MaterialDto> materialDtoService)
         {
-            _userDtoService = genericDalService;
+            _userDtoService = genericDtoService;
             _courseDtoService = courseDtoService;
             _userSkillDtoService = userSkillDtoService;
             _userCourseDtoService = userCourseDtoService;

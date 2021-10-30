@@ -13,21 +13,21 @@ namespace DAL.Services.EntityDalService
 {
     public class CourseDalService : IEntityDalService<Course>
     {
-        private readonly IGenericDalService<CourseDto> _courseDtoService;
-        private readonly IGenericDalService<UserDto> _userDtoService; 
-        private readonly IGenericDalService<SkillDto> _skillDtoService;
-        private readonly IGenericDalService<MaterialDto> _materialDtoService;
-        private readonly IGenericDalService<CourseSkillDto> _courseSkillDtoService;
-        private readonly IGenericDalService<CourseMaterialDto> _courseMaterialDtoService;
+        private readonly IGenericDtoService<CourseDto> _courseDtoService;
+        private readonly IGenericDtoService<UserDto> _userDtoService; 
+        private readonly IGenericDtoService<SkillDto> _skillDtoService;
+        private readonly IGenericDtoService<MaterialDto> _materialDtoService;
+        private readonly IGenericDtoService<CourseSkillDto> _courseSkillDtoService;
+        private readonly IGenericDtoService<CourseMaterialDto> _courseMaterialDtoService;
         
         private readonly IMapper _mapper;
 
-        public CourseDalService(IGenericDalService<CourseDto> courseDtoService,
-            IGenericDalService<UserDto> userDtoService,
-            IGenericDalService<SkillDto> skillDtoService,
-            IGenericDalService<MaterialDto> materialDtoService, 
-            IGenericDalService<CourseSkillDto> courseSkillDtoService,
-            IGenericDalService<CourseMaterialDto> courseMaterialDtoService)
+        public CourseDalService(IGenericDtoService<CourseDto> courseDtoService,
+            IGenericDtoService<UserDto> userDtoService,
+            IGenericDtoService<SkillDto> skillDtoService,
+            IGenericDtoService<MaterialDto> materialDtoService, 
+            IGenericDtoService<CourseSkillDto> courseSkillDtoService,
+            IGenericDtoService<CourseMaterialDto> courseMaterialDtoService)
         {
             _courseDtoService = courseDtoService;
             _userDtoService = userDtoService;
