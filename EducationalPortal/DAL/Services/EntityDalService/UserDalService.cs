@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Models;
@@ -99,6 +100,15 @@ namespace DAL.Services.EntityDalService
             }
             
             return user;
+        }
+
+        public List<User> Filter(Func<User, bool> criteriaFunc)
+        {
+            var userDtos = 
+                _userDtoService.Filter(userDto => criteriaFunc(_mapper.Map<User>(userDto)));
+            var filteredUsers = userDtos.Select(userDto => _mapper.Map<User>(userDto)).ToList();
+
+            return filteredUsers;
         }
 
         public void Update(User user)

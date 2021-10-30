@@ -1,4 +1,6 @@
-﻿using Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using Core.Models;
 
 namespace DAL.Abstractions.Interfaces
 {
@@ -7,6 +9,8 @@ namespace DAL.Abstractions.Interfaces
         void Add(T t);
 
         T Get(int id);
+
+        List<T> Filter(Func<T, bool> criteriaFunc);
 
         void Update(T t);
 

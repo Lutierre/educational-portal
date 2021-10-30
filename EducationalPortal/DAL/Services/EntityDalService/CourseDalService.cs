@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Models;
@@ -83,6 +84,15 @@ namespace DAL.Services.EntityDalService
             }
             
             return course;
+        }
+
+        public List<Course> Filter(Func<Course, bool> criteriaFunc)
+        {
+            var courseDtos = 
+                _courseDtoService.Filter(courseDto => criteriaFunc(_mapper.Map<Course>(courseDto)));
+            var filteredCourses = courseDtos.Select(courseDto => _mapper.Map<Course>(courseDto)).ToList();
+
+            return filteredCourses;
         }
 
         public void Update(Course course)

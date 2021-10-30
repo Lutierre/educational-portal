@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Core.Models.Materials;
 using DAL.Abstractions.Interfaces;
@@ -10,19 +11,19 @@ namespace DAL.Services.EntityDalService
 {
     public class MaterialDalService : IEntityDalService<Material>
     {
-        private readonly IGenericDalService<MaterialDto> _materialDalService;
+        private readonly IGenericDalService<MaterialDto> _materialDtoService;
         private readonly IGenericDalService<ArticleDto> _articleDtoService;
         private readonly IGenericDalService<BookDto> _bookDtoService;
         private readonly IGenericDalService<VideoDto> _videoDtoService;
 
         private readonly IMapper _mapper;
 
-        public MaterialDalService(IGenericDalService<MaterialDto> materialDalService,
+        public MaterialDalService(IGenericDalService<MaterialDto> materialDtoService,
             IGenericDalService<ArticleDto> articleDtoService,
             IGenericDalService<BookDto> bookDtoService,
             IGenericDalService<VideoDto> videoDtoService)
         {
-            _materialDalService = materialDalService;
+            _materialDtoService = materialDtoService;
             _articleDtoService = articleDtoService;
             _bookDtoService = bookDtoService;
             _videoDtoService = videoDtoService;
@@ -49,7 +50,7 @@ namespace DAL.Services.EntityDalService
                 return null;
             }
             
-            var dto = _materialDalService.Get(id);
+            var dto = _materialDtoService.Get(id);
             var material = _mapper.Map<Material>(dto);
             var result = _mapper.Map<T1>(dtos[0]);
 
@@ -73,7 +74,7 @@ namespace DAL.Services.EntityDalService
         public void Add(Material material)
         {
             var dto = _mapper.Map<MaterialDto>(material);
-            var id = _materialDalService.Add(dto);
+            var id = _materialDtoService.Add(dto);
             
             switch (material.Type)
             {
@@ -127,10 +128,20 @@ namespace DAL.Services.EntityDalService
             return null;
         }
 
+        public List<Material> Filter(Func<Material, bool> criteriaFunc)
+        {
+            var materialDtos = 
+                _materialDtoService.Filter(materialDto => criteriaFunc(_mapper.Map<Material>(materialDto)));
+            var filteredMaterials =
+                materialDtos.Select(materialDto => _mapper.Map<Material>(materialDto)).ToList();
+
+            return filteredMaterials;
+        }
+
         public void Update(Material material)
         {
             var dto = _mapper.Map<MaterialDto>(material);
-            _materialDalService.Update(dto);
+            _materialDtoService.Update(dto);
 
             switch (material.Type)
             {
@@ -163,7 +174,7 @@ namespace DAL.Services.EntityDalService
                     break;
             }
 
-            _materialDalService.Delete(id);
+            _materialDtoService.Delete(id);
         }
     }
 }

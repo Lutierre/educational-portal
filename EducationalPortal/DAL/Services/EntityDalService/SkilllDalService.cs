@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
 using DTO.Models;
@@ -36,6 +39,15 @@ namespace DAL.Services.EntityDalService
             var skill = _mapper.Map<Skill>(dto);
             
             return skill;
+        }
+
+        public List<Skill> Filter(Func<Skill, bool> criteriaFunc)
+        {
+            var skillDtos = 
+                _skillDtoService.Filter(skillDto => criteriaFunc(_mapper.Map<Skill>(skillDto)));
+            var filteredSkills = skillDtos.Select(skillDto => _mapper.Map<Skill>(skillDto)).ToList();
+
+            return filteredSkills;
         }
 
         public void Update(Skill skill)
