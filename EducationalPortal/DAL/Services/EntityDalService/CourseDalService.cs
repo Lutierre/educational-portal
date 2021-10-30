@@ -45,11 +45,14 @@ namespace DAL.Services.EntityDalService
             _mapper = config.CreateMapper();
         }
         
-        public void Add(Course course)
+        public Course Add(Course course)
         {
             var dto = _mapper.Map<CourseDto>(course);
             dto.AuthorId = course.Author.Id;
-            _courseDtoService.Add(dto);
+            var id = _courseDtoService.Add(dto);
+            var result = Get(id);
+
+            return result;
         }
 
         public Course Get(int id)

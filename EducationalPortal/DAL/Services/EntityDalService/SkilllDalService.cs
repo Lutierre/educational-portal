@@ -27,10 +27,13 @@ namespace DAL.Services.EntityDalService
             _mapper = config.CreateMapper();
         }
         
-        public void Add(Skill skill)
+        public Skill Add(Skill skill)
         {
             var dto = _mapper.Map<SkillDto>(skill);
-            _skillDtoService.Add(dto);
+            var id = _skillDtoService.Add(dto);
+            var result = Get(id);
+
+            return result;
         }
 
         public Skill Get(int id)

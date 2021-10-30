@@ -50,10 +50,13 @@ namespace DAL.Services.EntityDalService
             _mapper = config.CreateMapper();
         }
         
-        public void Add(User user)
+        public User Add(User user)
         {
             var dto = _mapper.Map<UserDto>(user);
-            _userDtoService.Add(dto);
+            var id = _userDtoService.Add(dto);
+            var result = Get(id);
+
+            return result;
         }
 
         public User Get(int id)

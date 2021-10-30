@@ -71,7 +71,7 @@ namespace DAL.Services.EntityDalService
             genericDalService.Update(dto);
         }
 
-        public void Add(Material material)
+        public Material Add(Material material)
         {
             var dto = _mapper.Map<MaterialDto>(material);
             var id = _materialDtoService.Add(dto);
@@ -100,6 +100,10 @@ namespace DAL.Services.EntityDalService
                     break;
                 }
             }
+
+            var result = Get(id);
+
+            return result;
         }
 
         public Material Get(int id)

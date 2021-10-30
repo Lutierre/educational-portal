@@ -6,7 +6,7 @@ namespace DAL.Abstractions.Interfaces
 {
     public interface IEntityDalService<T> where T : BaseEntity
     {
-        void Add(T t);
+        T Add(T t);
 
         T Get(int id);
 
