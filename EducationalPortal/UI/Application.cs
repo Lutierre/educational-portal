@@ -1,7 +1,8 @@
 ﻿using System;
+using BLL.Abstractions.Interfaces;
 using UI.Abstractions.Interfaces;
 
-namespace EducationalPortal.Services
+namespace EducationalPortal
 {
     public class Application : IApplication
     {

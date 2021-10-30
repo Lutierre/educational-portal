@@ -1,13 +1,15 @@
-﻿using System;
+﻿using BLL.Abstractions.Interfaces;
+using BLL.Services;
 using Core.Models;
 using Core.Models.Materials;
 using DAL.Abstractions.Interfaces;
 using DAL.Services;
 using DAL.Services.EntityDalService;
+using EducationalPortal.Views;
 using Microsoft.Extensions.DependencyInjection;
 using UI.Abstractions.Interfaces;
 
-namespace EducationalPortal.Services
+namespace EducationalPortal
 {
     class Program
     {
@@ -20,6 +22,13 @@ namespace EducationalPortal.Services
                 .AddTransient<IEntityDalService<Material>, MaterialDalService>()
                 .AddTransient<IEntityDalService<Skill>, SkillDalService>()
                 .AddTransient(typeof(IGenericDalService<>), typeof(GenericDalService<>))
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<IAuthorizationView, AuthorizationView>()
+                .AddTransient<ICoursesListView, CoursesListView>()
+                .AddTransient<ICourseView, CourseView>()
+                .AddTransient<ICreateCourseView, CreateCourseView>()
+                .AddTransient<IMaterialView, MaterialView>()
+                .AddTransient<IProfileView, ProfileView>()
                 .BuildServiceProvider();
 
             var startPoint = serviceProvider.GetService<IApplication>();
