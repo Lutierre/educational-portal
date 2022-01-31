@@ -40,6 +40,8 @@ namespace DAL.Services.EntityDalService
             {
                 cfg.CreateMap<CourseDto, Course>();
                 cfg.CreateMap<Course, CourseDto>();
+                cfg.CreateMap<UserDto, User>();
+                cfg.CreateMap<MaterialDto, Material>();
             });
                 
             _mapper = config.CreateMapper();
