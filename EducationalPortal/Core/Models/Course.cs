@@ -11,10 +11,12 @@ namespace Core.Models
         
         public User Author { get; set; }
         
+        public int AuthorId { get; set; }
+        
         public List<Skill> Skills { get; set; }
         
         public List<Material> Materials { get; set; }
 
-        public bool IsAvailable => Materials.Count > 0;
+        public bool IsAvailable => Materials?.Count > 0;
     }
 }
