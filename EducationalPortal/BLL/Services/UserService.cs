@@ -40,9 +40,15 @@ namespace BLL.Services
             return "registered";
         }
 
-        public void RegisterUser(string nickname, string password)
+        public User RegisterUser(string nickname, string password)
         {
-            _userDalService.Add(new User { Nickname = nickname, Password = password });
+            var user = _userDalService.Add(new User
+            {
+                Nickname = nickname, 
+                Password = password
+            });
+            
+            return user;
         }
 
         public void Logout()
