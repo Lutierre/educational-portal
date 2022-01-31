@@ -31,60 +31,63 @@ namespace EducationalPortal.Views
 
         public void Start()
         {
-            Console.Clear();
-            
             var nickname = _currentStateService.AuthorizedUser.Nickname;
-            var password = new string('*', _currentStateService.AuthorizedUser.Password.Length);   
+            var password = new string('*', _currentStateService.AuthorizedUser.Password.Length);
             
-            Console.WriteLine($"Добро пожаловать в личный кабинет, {nickname}!\n" +
-                              $"Ваш пароль: {password}");
-            Console.WriteLine("Список всех ваших умений и очков:");
-
-            var userSkills = _skillService.GetUserSkills();
-
-            foreach (var skill in userSkills)
+            while (true)
             {
-                Console.WriteLine($"- {skill.Skill.Title}: {skill.Points}");
-            }
-            
-            Console.WriteLine("Список всех пройденных курсов:");
+                Console.Clear();
 
-            var completedCourses = _courseService.GetCompletedCourses();
+                Console.WriteLine($"Добро пожаловать в личный кабинет, {nickname}!\n" +
+                                  $"Ваш пароль: {password}");
+                Console.WriteLine("Список всех ваших умений и очков:");
 
-            foreach (var course in completedCourses)
-            {
-                Console.WriteLine($"- {course.Title}");
-            }
-            
-            Console.WriteLine("Список всех курсов с процентом прохождения:");
+                var userSkills = _skillService.GetUserSkills();
 
-            var coursesProgress = _courseService.GetCoursesProgress();
+                foreach (var skill in userSkills)
+                {
+                    Console.WriteLine($"- {skill.Skill.Title}: {skill.Points}");
+                }
 
-            foreach (var (course, progress) in coursesProgress)
-            {
-                Console.WriteLine($"- {course.Title}: ${progress}%");
-            }
-            
-            Console.WriteLine("Чего изволите? Выберите действие:\n" +
-                              "c - список всех доступных курсов;\n" +
-                              "n - создание нового курса;" +
-                              "q - разлогиниться");
+                Console.WriteLine("Список всех пройденных курсов:");
 
-            var input = Console.ReadKey().KeyChar;
+                var completedCourses = _courseService.GetCompletedCourses();
 
-            switch (input)
-            {
-                case 'c':
-                    _coursesListView.Start();
-                    break;
-                
-                case 'n':
-                    _createCourseView.Start();
-                    break;
-                
-                case 'q':
-                    _userService.Logout();
-                    return;
+                foreach (var course in completedCourses)
+                {
+                    Console.WriteLine($"- {course.Title}");
+                }
+
+                Console.WriteLine("Список всех курсов с процентом прохождения:");
+
+                var coursesProgress = _courseService.GetCoursesProgress();
+
+                foreach (var (course, progress) in coursesProgress)
+                {
+                    Console.WriteLine($"- {course.Title}: ${progress}%");
+                }
+
+                Console.WriteLine("Чего изволите? Выберите действие:\n" +
+                                  "c - список всех доступных курсов;\n" +
+                                  "n - создание нового курса;\n" +
+                                  "q - разлогиниться");
+
+                var input = Console.ReadKey().KeyChar;
+
+                switch (input)
+                {
+                    case 'c':
+                        _coursesListView.Start();
+                        break;
+
+                    case 'n':
+                        _createCourseView.Start();
+                        break;
+
+                    case 'q':
+                        _userService.Logout();
+                        return;
+                }
             }
         }
     }

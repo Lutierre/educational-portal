@@ -19,7 +19,7 @@ namespace EducationalPortal.Views
             _currentStateService = currentStateService;
         }
 
-        public void Start()
+        void IView.Start()
         {
             Console.Clear();
             

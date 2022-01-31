@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using BLL.Abstractions.Interfaces;
 using UI.Abstractions.Interfaces;
 using static System.String;
@@ -27,7 +28,7 @@ namespace EducationalPortal.Views
             var description = Console.ReadLine();
             
             Console.WriteLine("Введите умения вашего курса через запятую");
-            var skillNames = Console.ReadLine().Split(',');
+            var skillNames = Regex.Split(Console.ReadLine(), @", *");
 
             _courseService.CreateCourse(courseTitle, description, skillNames);
 
@@ -36,12 +37,12 @@ namespace EducationalPortal.Views
             while (input != "h")
             {
                 Console.WriteLine("Добавьте материалы в курс:\n" +
-                                  "na - новая статья" +
-                                  "nb - новая книга" +
-                                  "nv - новое видео" +
-                                  "a - существующая статья" +
-                                  "b - существующая книга" +
-                                  "v - существующее видео" +
+                                  "na - новая статья\n" +
+                                  "nb - новая книга\n" +
+                                  "nv - новое видео\n" +
+                                  "a - существующая статья\n" +
+                                  "b - существующая книга\n" +
+                                  "v - существующее видео\n" +
                                   "h - харе!");
 
                 input = Console.ReadLine();
