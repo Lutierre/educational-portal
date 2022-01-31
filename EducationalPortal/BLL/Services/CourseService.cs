@@ -103,6 +103,7 @@ namespace BLL.Services
             var currentUser = _currentStateService.AuthorizedUser;
             var userCourseIds = currentUser.CurrentCourses.Select(course => course.Id).ToHashSet();
             var allCourses = _courseDalService.Filter(_ => true);
+            
             var results = new List<Course>();
 
             foreach (var course in allCourses)
@@ -112,7 +113,9 @@ namespace BLL.Services
                     continue;
                 }
 
-                if (!course.IsAvailable)
+                var courseFullInfo = _courseDalService.Get(course.Id);
+                
+                if (!courseFullInfo.IsAvailable)
                 {
                     continue;
                 }
