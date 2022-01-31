@@ -7,7 +7,7 @@ namespace BLL.Abstractions.Interfaces
     {
         string Authorize(string nickname, string password);
 
-        void RegisterUser(string nickname, string password);
+        User RegisterUser(string nickname, string password);
 
         void Logout();
     }
