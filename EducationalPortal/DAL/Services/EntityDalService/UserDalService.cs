@@ -45,25 +45,16 @@ namespace DAL.Services.EntityDalService
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<CourseDto, Course>();
                 cfg.CreateMap<UserSkillDto, UserSkill>();
+                cfg.CreateMap<MaterialDto, Material>();
             });
                 
             _mapper = config.CreateMapper();
         }
-        
-        public User Add(User user)
+
+        private User Fetch(User user)
         {
-            var dto = _mapper.Map<UserDto>(user);
-            var id = _userDtoService.Add(dto);
-            var result = Get(id);
-
-            return result;
-        }
-
-        public User Get(int id)
-        {
-            var dto = _userDtoService.Get(id);
-            var user = _mapper.Map<User>(dto);
-
+            var id = user.Id;
+            
             var filteredCourses = 
                 _userCourseDtoService.Filter(userCourseDto => userCourseDto.UserId == id);
 
@@ -101,6 +92,24 @@ namespace DAL.Services.EntityDalService
                 var material = _mapper.Map<Material>(materialDto);
                 user.Materials.Add(material);
             }
+
+            return user;
+        }
+        
+        public User Add(User user)
+        {
+            var dto = _mapper.Map<UserDto>(user);
+            var id = _userDtoService.Add(dto);
+            var result = Get(id);
+
+            return result;
+        }
+
+        public User Get(int id)
+        {
+            var userDto = _userDtoService.Get(id);
+            
+            var user = Fetch(_mapper.Map<User>(userDto));
             
             return user;
         }
@@ -109,7 +118,8 @@ namespace DAL.Services.EntityDalService
         {
             var userDtos = 
                 _userDtoService.Filter(userDto => criteriaFunc(_mapper.Map<User>(userDto)));
-            var filteredUsers = userDtos.Select(userDto => _mapper.Map<User>(userDto)).ToList();
+            
+            var filteredUsers = userDtos.Select(userDto => Fetch(_mapper.Map<User>(userDto))).ToList();
 
             return filteredUsers;
         }
