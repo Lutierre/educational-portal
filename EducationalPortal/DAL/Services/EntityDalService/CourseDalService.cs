@@ -46,6 +46,37 @@ namespace DAL.Services.EntityDalService
                 
             _mapper = config.CreateMapper();
         }
+
+        private Course Fetch(Course course)
+        {
+            course.Author = _mapper.Map<User>(_userDtoService.Get(course.AuthorId));
+            
+            var filteredSkills = 
+                _courseSkillDtoService.Filter(courseSkillDto => courseSkillDto.CourseId == course.Id);
+
+            course.Skills = new List<Skill>();
+
+            foreach (var courseSkillDto in filteredSkills)
+            {
+                var skillDto = _skillDtoService.Get(courseSkillDto.SkillId);
+                var skill = _mapper.Map<Skill>(skillDto);
+                course.Skills.Add(skill);
+            }
+            
+            var filteredMaterials = 
+                _courseMaterialDtoService.Filter(courseMaterialDto => courseMaterialDto.CourseId == course.Id);
+
+            course.Materials = new List<Material>();
+
+            foreach (var courseMaterialDto in filteredMaterials)
+            {
+                var materialDto = _materialDtoService.Get(courseMaterialDto.MaterialId);
+                var material = _mapper.Map<Material>(materialDto);
+                course.Materials.Add(material);
+            }
+
+            return course;
+        }
         
         public Course Add(Course course)
         {
@@ -59,34 +90,8 @@ namespace DAL.Services.EntityDalService
 
         public Course Get(int id)
         {
-            var dto = _courseDtoService.Get(id);
-            var course = _mapper.Map<Course>(dto);
-
-            course.Author = _mapper.Map<User>(_userDtoService.Get(dto.AuthorId));
-            
-            var filteredSkills = 
-                _courseSkillDtoService.Filter(courseSkillDto => courseSkillDto.CourseId == id);
-
-            course.Skills = new List<Skill>();
-
-            foreach (var courseSkillDto in filteredSkills)
-            {
-                var skillDto = _skillDtoService.Get(courseSkillDto.SkillId);
-                var skill = _mapper.Map<Skill>(skillDto);
-                course.Skills.Add(skill);
-            }
-            
-            var filteredMaterials = 
-                _courseMaterialDtoService.Filter(courseMaterialDto => courseMaterialDto.CourseId == id);
-
-            course.Materials = new List<Material>();
-
-            foreach (var courseMaterialDto in filteredMaterials)
-            {
-                var materialDto = _materialDtoService.Get(courseMaterialDto.MaterialId);
-                var material = _mapper.Map<Material>(materialDto);
-                course.Materials.Add(material);
-            }
+            var courseDto = _courseDtoService.Get(id);
+            var course = Fetch(_mapper.Map<Course>(courseDto));
             
             return course;
         }
@@ -95,7 +100,8 @@ namespace DAL.Services.EntityDalService
         {
             var courseDtos = 
                 _courseDtoService.Filter(courseDto => criteriaFunc(_mapper.Map<Course>(courseDto)));
-            var filteredCourses = courseDtos.Select(courseDto => _mapper.Map<Course>(courseDto)).ToList();
+            var filteredCourses = 
+                courseDtos.Select(courseDto => Fetch(_mapper.Map<Course>(courseDto))).ToList();
 
             return filteredCourses;
         }
