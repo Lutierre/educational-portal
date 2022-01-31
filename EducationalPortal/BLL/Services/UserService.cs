@@ -23,7 +23,7 @@ namespace BLL.Services
 
             if (result.Count > 0)
             {
-                _currentStateService.AuthorizedUser = _userDalService.Get(result[0].Id);
+                _currentStateService.AuthorizedUser = result[0];
                 
                 return "success";
             }
@@ -35,7 +35,8 @@ namespace BLL.Services
                 return "wrong-password";
             }
             
-            RegisterUser(nickname, password);
+            var user = RegisterUser(nickname, password);
+            _currentStateService.AuthorizedUser = user;
 
             return "registered";
         }
