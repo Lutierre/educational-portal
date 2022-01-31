@@ -33,8 +33,11 @@ namespace DAL.Services.EntityDalService
                 cfg.CreateMap<MaterialDto, Material>();
                 cfg.CreateMap<Material, MaterialDto>();
                 cfg.CreateMap<ArticleDto, Article>();
+                cfg.CreateMap<Article, ArticleDto>();
                 cfg.CreateMap<BookDto, Book>();
+                cfg.CreateMap<Book, BookDto>();
                 cfg.CreateMap<VideoDto, Video>();
+                cfg.CreateMap<Video, VideoDto>();
             });
                 
             _mapper = config.CreateMapper();
