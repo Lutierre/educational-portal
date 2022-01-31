@@ -44,19 +44,19 @@ namespace DAL.Services.EntityDalService
         }
         
         private T1 TryGetMaterial<T1, T2>(IGenericDtoService<T2> genericDtoService, int id)
-            where T1 : Material where T2 : BaseEntityDto 
+            where T1 : Material where T2 : AbstractMaterialDto 
         {
-            var dtos = genericDtoService.Filter(dto => dto.Id == id);
+            var materialDtos = genericDtoService.Filter(materialDto => materialDto.MaterialId == id);
 
-            if (dtos.Count == 0)
+            if (materialDtos.Count == 0)
             {
                 return null;
             }
             
-            var dto = _materialDtoService.Get(id);
-            var material = _mapper.Map<Material>(dto);
-            var result = _mapper.Map<T1>(dtos[0]);
+            var materialDto = _materialDtoService.Get(id);
+            var result = _mapper.Map<T1>(materialDtos[0]);
 
+            var material = _mapper.Map<Material>(materialDto);
             result.Id = id;
             result.Title = material.Title;
 
@@ -140,7 +140,7 @@ namespace DAL.Services.EntityDalService
             var materialDtos = 
                 _materialDtoService.Filter(materialDto => criteriaFunc(_mapper.Map<Material>(materialDto)));
             var filteredMaterials =
-                materialDtos.Select(materialDto => _mapper.Map<Material>(materialDto)).ToList();
+                materialDtos.Select(materialDto => Get(materialDto.Id)).ToList();
 
             return filteredMaterials;
         }
