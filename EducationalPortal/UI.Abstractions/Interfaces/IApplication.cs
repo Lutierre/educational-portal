@@ -3,6 +3,5 @@
     public interface IApplication
     {
         public void Start();
-        public void Add();
     }
 }

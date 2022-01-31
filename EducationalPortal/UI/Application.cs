@@ -1,19 +1,19 @@
-﻿using System;
-using BLL.Abstractions.Interfaces;
-using UI.Abstractions.Interfaces;
+﻿using UI.Abstractions.Interfaces;
 
 namespace EducationalPortal
 {
     public class Application : IApplication
     {
-        public void Start()
+        private readonly IAuthorizationView _authorizationView;
+
+        public Application(IAuthorizationView authorizationView)
         {
-            Console.WriteLine("Hello world!");
+            _authorizationView = authorizationView;
         }
 
-        public void Add()
+        public void Start()
         {
-            throw new System.NotImplementedException();
+            _authorizationView.Start();
         }
     }
 }
